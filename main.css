@@ -1,4 +1,4 @@
-/* from https://www.w3schools.com/howto/howto_js_form_steps.asp */
+/* adapted from https://www.w3schools.com/howto/howto_js_form_steps.asp */
 
 /* Style the form */
 #regForm {
@@ -10,14 +10,14 @@
   }
   
   /* Style the input fields */
-  input {
+  input[type="text"] {
     padding: 10px;
     width: 100%;
     font-size: 17px;
     font-family: Raleway;
     border: 1px solid #aaaaaa;
   }
-  
+
   /* Mark input boxes that gets an error on validation: */
   input.invalid {
     background-color: #ffdddd;
