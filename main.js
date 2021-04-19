@@ -4,33 +4,84 @@ const quizText = {
   1: {
     prompt: 'If you couldn\'t get God\'s forgiveness, He will throw you into hell if you',
     subject: 'problem',
-    a: 'Currently have any moral imperfection at all (ignoring your past)',
-    b: 'Have ever done anything morally imperfectly',
-    c: 'Have ever broken some special commandment of God (not just "regular" ones)'
+    answers: {
+      a: 'Currently have any moral imperfection at all (ignoring your past)',
+      b: 'Have ever done anything morally imperfectly',
+      c: 'Have ever broken some special commandment of God (not just "regular" ones)'
+    }
   },
   2: {
     prompt: 'But, God will forgive you if you',
     subject: 'forgiveness',
-    a: 'Resolve to try harder to please Him',
-    b: 'And succeed in breaking fewer of His commandments each day for the rest of your life',
-
-    c: 'Believe that some deity exists',
-    d: 'And that the God of the Jews exists',
-    e: 'And that Jesus is God',
-    f: 'And that Jesus’ death was somehow necessary for your forgiveness',
-    g: 'And that your sin was forgiven when He died (maybe contingent upon your belief that this is the case)',
-    h: 'And that nothing else affects God’s decision to forgive you besides this belief (such as your obedience)',
-    i: 'Multiple...'
+    answers: {},  // filled in during initialize()
+    worksAnswers: ['Resolve to try harder to please Him', 'And succeed in breaking fewer of His commandments each day for the rest of your life'],
+    faithAnswers: ['Believe that some deity exists', 'And that the God of the Jews exists', 'And that Jesus is God', 'And that Jesus’ death was somehow necessary for your forgiveness', 'And that your sin was forgiven when He died (maybe contingent upon your belief that this is the case or your request that it be the case)', 'And that nothing else affects God’s decision to forgive you besides this belief (such as your obedience)']
+  },
+  3: {
+    prompt: 'After being forgiven, if you do something bad (break one of God’s commandments to Israel, break one of Jesus’ commandments summarizing moral perfection, or do something against your conscience--whichever one matters most), God',
+    subject: 'saved-sin',
+    answers: {
+      a: 'Uses the “saved person” table of punishments (instead of going to hell, you just FOMO) rather than the “unsaved person” table of punishments',
+      b: 'Sends you back to step 2',
+      c: 'Uses the “saved person” table of punishments but keeps a cumulative quantifier of your evils and will send you back to step 2 if you surpass some threshold',
+      d: 'Already forgave this evil in step 2, so it makes no difference whatsoever in how God treats you; you’re as close to Him as you would be if you behaved with moral perfection'
+    }
   }
 };
 
+function* answerLetterGenerator() {
+  /* returns the next letter in the lowercase alphabet, stopping at z */
+  for (let asciiValue = 97; asciiValue < 123; ++asciiValue)
+    yield String.fromCharCode(asciiValue);
+}
+
+function setRemainingQuizTextAnswers() {
+    /* fill in question 2's grouped answers, since they couldn't be set during quizText intitialization */
+    const answerLetters = answerLetterGenerator();
+
+    // start with works-related answers group
+    const worksAnswers = quizText[2].worksAnswers;
+    for (const answer of worksAnswers) {
+      const letter = answerLetters.next();
+      quizText[2].answers[letter] = answer;
+    }
+  
+    // same for faith answers
+    const faithAnswers = quizText[2].faithAnswers;
+    for (const answer of faithAnswers) {
+      const letter = answerLetters.next();
+      quizText[2].answers[letter] = answer;
+    }
+  
+    // and add the 'Multiple...' option at the end of question 2's answer list
+    const letter = answerLetters.next();
+    quizText[2].answers[letter] = 'Multiple...';
+}
 
 function initialize() {
   // Unhide the first tab
   showTab(currentTab);
 
-  // TODO: add text to each question
+  // add text to each question
+  const promptLegends = document.getElementsByTagName('legend');
+  for (let index = 0; index < promptLegends.length; ++index) {
+    const legend = promptLegends[index];
+    const promptText = quizText[index].prompt;
+    legend.textContent = promptText;
+  }
 
+  setRemainingQuizTextAnswers();
+
+  // add text to each answer option
+  for (const question of quizText) {
+    // make the div
+
+    // make the input
+
+    // make the label
+
+    // add to its tab (fieldset)
+  }
 }
 
 var currentTab = 0; // just w3schools using a global #wontfix
