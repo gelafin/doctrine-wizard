@@ -1,24 +1,81 @@
-/* from https://www.w3schools.com/howto/howto_js_form_steps.asp */
+/* using parts of https://www.w3schools.com/howto/howto_js_form_steps.asp */
 
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+const quizText = {
+  1: {
+    prompt: 'If you couldn\'t get God\'s forgiveness, He will throw you into hell if you',
+    subject: 'problem',
+    a: 'Currently have any moral imperfection at all (ignoring your past)',
+    b: 'Have ever done anything morally imperfectly',
+    c: 'Have ever broken some special commandment of God (not just "regular" ones)'
+  },
+  2: {
+    prompt: 'But, God will forgive you if you',
+    subject: 'forgiveness',
+    a: 'Resolve to try harder to please Him',
+    b: 'And succeed in breaking fewer of His commandments each day for the rest of your life',
+
+    c: 'Believe that some deity exists',
+    d: 'And that the God of the Jews exists',
+    e: 'And that Jesus is God',
+    f: 'And that Jesus’ death was somehow necessary for your forgiveness',
+    g: 'And that your sin was forgiven when He died (maybe contingent upon your belief that this is the case)',
+    h: 'And that nothing else affects God’s decision to forgive you besides this belief (such as your obedience)',
+    i: 'Multiple...'
+  }
+};
+
+
+function initialize() {
+  // Unhide the first tab
+  showTab(currentTab);
+
+  // TODO: add text to each question
+
+}
+
+var currentTab = 0; // just w3schools using a global #wontfix
+initialize();
+
+function displayResult() {
+  /* arranges the user's quiz answers as a single gospel statement */
+  const displayP = document.getElementById('display-result');
+
+  // get user's answers
+
+  // adjust wording of user's answers to be coherent as one statement
+
+  // display the statement
+  displayP.textContent = 'testing';
+}
 
 function showTab(n) {
-  // This function will display the specified tab of the form ...
+  // display the specified tab of the form ...
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";
-  // ... and fix the Previous/Next buttons:
+
+  // update the Previous button
   if (n == 0) {
     document.getElementById("prevBtn").style.display = "none";
   } else {
     document.getElementById("prevBtn").style.display = "inline";
   }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").textContent = "Submit";
+
+  // update the Next button
+  if (n == (x.length - 2)) {
+    // showing last question (second-last tab)
+    const nextButton = document.getElementById("nextBtn");
+    nextButton.textContent = "View Result";
+    nextButton.addEventListener('click', displayResult);
+    document.getElementById("nextBtn").style.display = "inline";
+  } else if (n == (x.length - 1)) {
+    // showing summary (last tab)
+    document.getElementById("nextBtn").style.display = "none";
   } else {
     document.getElementById("nextBtn").textContent = "Next";
-  }
-  // ... and run a function that displays the correct step indicator:
+    document.getElementById("nextBtn").style.display = "inline";
+    }
+
+  // update step indicator
   fixStepIndicator(n)
 }
 
@@ -31,12 +88,6 @@ function nextPrev(n) {
   x[currentTab].style.display = "none";
   // Increase or decrease the current tab by 1:
   currentTab = currentTab + n;
-  // if you have reached the end of the form... :
-  if (currentTab >= x.length) {
-    //...the form gets submitted:
-    document.getElementById("regForm").submit();
-    return false;
-  }
   // Otherwise, display the correct tab:
   showTab(currentTab);
 }

@@ -10,7 +10,10 @@
             <h1>Doctrine Wizard</h1>
             
             <!-- One "tab" for each step in the form: -->
-            <div class="tab">If you couldn't get God's forgiveness, He will throw you into hell if you
+            <!-- Question 1 -->
+            <fieldset class="tab">
+                <legend>If you couldn't get God's forgiveness, He will throw you into hell if you</legend>
+
                 <div>
                     <input type="radio" name="problem" value="a" id="problem-a">
                     <label for="problem-a">Currently have any moral imperfection at all (ignoring your past)</label>
@@ -23,11 +26,14 @@
 
                 <div>
                     <input type="radio" name="problem" value="c" id="problem-c">
-                    <label for="problem-c">Have ever some special commandment of God (not just "regular" ones)</label>
+                    <label for="problem-c">Have ever broken some special commandment of God (not just "regular" ones)</label>
                 </div>
-            </div>
-            
-            <div class="tab">But, God will forgive you if you
+            </fieldset>
+
+            <!-- Question 2 -->
+            <fieldset class="tab">
+                <legend>But, God will forgive you if you</legend>
+
                 <div>
                     <input type="radio" name="forgiveness" value="a" id="forgiveness-a">
                     <label for="forgiveness-a">Resolve to try harder to please Him</label>
@@ -93,7 +99,37 @@
                     <option value="combo-g">And that your sin was forgiven when He died (maybe contingent upon your belief that this is the case)</option>                    
                     <option value="combo-h">And that nothing else affects God’s decision to forgive you besides this belief (such as your obedience)</option>
                 </select>
-            </div>
+            </fieldset>
+
+            <!-- Question 3 -->
+            <fieldset class="tab">
+                <legend>After being forgiven, if you do something bad (break one of God’s commandments to Israel, break one of Jesus’ commandments summarizing moral perfection, or do something against your conscience--whichever one matters most), God</legend>
+
+                <div>
+                    <input type="radio" name="saved-sin" value="a" id="saved-sin-a">
+                    <label for="saved-sin-a">Uses the “saved person” table of punishments (instead of going to hell, you just FOMO) rather than the “unsaved person” table of punishments</label>
+                </div>
+
+                <div>
+                    <input type="radio" name="saved-sin" value="b" id="saved-sin-b">
+                    <label for="saved-sin-b">Sends you back to step 2</label>
+                </div>
+
+                <div>
+                    <input type="radio" name="saved-sin" value="c" id="saved-sin-c">
+                    <label for="saved-sin-c">Uses the “saved person” table of punishments but keeps a cumulative quantifier of your evils and will send you back to step 2 if you surpass some threshold</label>
+                </div>
+
+                <div>
+                    <input type="radio" name="saved-sin" value="d" id="saved-sin-d">
+                    <label for="saved-sin-d">Already forgave this evil in step 2, so it makes no difference whatsoever in how God treats you; you’re as close to Him as you would be if you behaved with moral perfection</label>
+                </div>
+            </fieldset>
+
+            <!-- Display Results as a Gospel Summary -->
+            <p class="tab" id="display-result">
+                <!-- filled by JS -->
+            </p>
 
             <div style="overflow:auto;">
               <div style="float:right;">
